@@ -74,8 +74,38 @@
         protectPage();
         
         // Load tournament form on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            Render.renderTournamentForm();
+        document.addEventListener('DOMContentLoaded', async function() {
+            await Render.renderTournamentForm();
+            
+            // Attach form submission handler
+            const form = document.getElementById('tournamentForm');
+            if (form) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    console.log('Tournament form submitted');
+                    
+                    const tournamentName = document.getElementById('tournamentName').value.trim();
+                    const description = document.getElementById('description').value.trim();
+                    const startDate = document.getElementById('startDate').value;
+                    const endDate = document.getElementById('endDate').value;
+
+                    if (!tournamentName) {
+                        showError('Tournament name is required');
+                        return;
+                    }
+
+                    const tournamentData = { tournamentName, description, startDate, endDate, status: 'upcoming' };
+                    console.log('Creating tournament:', tournamentData);
+                    
+                    const newId = await API.createTournament(tournamentData);
+                    if (newId) {
+                        console.log('Tournament created:', newId);
+                        setTimeout(() => {
+                            window.location.href = 'tournament-list.html';
+                        }, 1000);
+                    }
+                });
+            }
         });
     </script>
 

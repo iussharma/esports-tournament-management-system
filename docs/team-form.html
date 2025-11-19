@@ -68,8 +68,36 @@
         protectPage();
         
         // Load team form on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            Render.renderTeamForm();
+        document.addEventListener('DOMContentLoaded', async function() {
+            await Render.renderTeamForm();
+            
+            // Attach form submission handler
+            const form = document.getElementById('teamForm');
+            if (form) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    console.log('Team form submitted');
+                    
+                    const teamName = document.getElementById('teamName').value.trim();
+                    const description = document.getElementById('description').value.trim();
+
+                    if (!teamName) {
+                        showError('Team name is required');
+                        return;
+                    }
+
+                    const teamData = { teamName, description, totalPoints: 0, wins: 0, losses: 0 };
+                    console.log('Creating team:', teamData);
+                    
+                    const newId = await API.createTeam(teamData);
+                    if (newId) {
+                        console.log('Team created:', newId);
+                        setTimeout(() => {
+                            window.location.href = 'team-list.html';
+                        }, 1000);
+                    }
+                });
+            }
         });
     </script>
 </body>

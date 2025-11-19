@@ -84,8 +84,38 @@
         protectPage();
         
         // Load match form on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            Render.renderMatchForm();
+        document.addEventListener('DOMContentLoaded', async function() {
+            await Render.renderMatchForm();
+            
+            // Attach form submission handler
+            const form = document.getElementById('matchForm');
+            if (form) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    console.log('Match form submitted');
+                    
+                    const team1Id = document.getElementById('team1Id').value;
+                    const team2Id = document.getElementById('team2Id').value;
+                    const tournamentId = document.getElementById('tournamentId').value;
+                    const matchDate = document.getElementById('matchDate').value;
+
+                    if (!team1Id || !team2Id || !tournamentId || !matchDate) {
+                        showError('All fields are required');
+                        return;
+                    }
+
+                    const matchData = { team1Id, team2Id, tournamentId, matchDate, status: 'scheduled', team1Score: 0, team2Score: 0 };
+                    console.log('Creating match:', matchData);
+                    
+                    const newId = await API.createMatch(matchData);
+                    if (newId) {
+                        console.log('Match created:', newId);
+                        setTimeout(() => {
+                            window.location.href = 'match-list.html';
+                        }, 1000);
+                    }
+                });
+            }
         });
     </script>
 

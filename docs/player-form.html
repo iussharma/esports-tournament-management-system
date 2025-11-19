@@ -83,8 +83,39 @@
         protectPage();
         
         // Load player form on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            Render.renderPlayerForm();
+        document.addEventListener('DOMContentLoaded', async function() {
+            await Render.renderPlayerForm();
+            
+            // Attach form submission handler
+            const form = document.getElementById('playerForm');
+            if (form) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    console.log('Player form submitted');
+                    
+                    const playerName = document.getElementById('playerName').value.trim();
+                    const teamId = document.getElementById('teamId').value;
+                    const role = document.getElementById('role').value.trim();
+                    const kd_ratio = document.getElementById('kd_ratio').value;
+                    const skill_rating = document.getElementById('skill_rating').value;
+
+                    if (!playerName || !teamId) {
+                        showError('Player name and team are required');
+                        return;
+                    }
+
+                    const playerData = { playerName, teamId, role, kd_ratio, skill_rating };
+                    console.log('Creating player:', playerData);
+                    
+                    const newId = await API.createPlayer(playerData);
+                    if (newId) {
+                        console.log('Player created:', newId);
+                        setTimeout(() => {
+                            window.location.href = 'player-list.html';
+                        }, 1000);
+                    }
+                });
+            }
         });
     </script>
 </body>
