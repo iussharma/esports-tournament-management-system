@@ -11,11 +11,11 @@
         <div class="navbar-container">
             <div class="logo">OCN</div>
             <div class="nav-links">
-                <a href="/dashboard.html">Dashboard</a>
-                <a href="/team-list.html">Teams</a>
-                <a href="/player-list.html">Players</a>
-                <a href="/tournament-list.html">Tournaments</a>
-                <a href="/match-list.html">Matches</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="team-list.html">Teams</a>
+                <a href="player-list.html">Players</a>
+                <a href="tournament-list.html">Tournaments</a>
+                <a href="match-list.html">Matches</a>
                 <button class="logout-btn" onclick="logout()">Logout</button>
             </div>
         </div>
@@ -86,7 +86,7 @@
             const success = await API.createTournament({ tournamentName, description, status });
             if (success) {
                 setTimeout(() => {
-                    window.location.href = '/tournament-list.html';
+                    window.location.href = 'tournament-list.html';
                 }, 1000);
             }
         });
