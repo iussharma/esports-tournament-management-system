@@ -12,7 +12,13 @@ let currentUserRole = null;
  * Initialize auth state listener
  * Checks if user is logged in on page load
  */
+let authListenerInitialized = false;
+
 function initAuthStateListener() {
+  // Prevent multiple initializations
+  if (authListenerInitialized) return;
+  authListenerInitialized = true;
+
   if (USE_DEMO_MODE) {
     // Demo mode: check localStorage for demo user
     const demoUser = localStorage.getItem('demoUser');
@@ -66,7 +72,10 @@ function initAuthStateListener() {
  * @returns {Promise<boolean>} - True if login successful
  */
 async function login(username, password) {
+  console.log('Login called with USE_DEMO_MODE:', USE_DEMO_MODE);
+  
   if (USE_DEMO_MODE) {
+    console.log('Using demo mode login');
     return loginDemo(username, password);
   }
 
@@ -74,14 +83,16 @@ async function login(username, password) {
     const auth = getAuth();
     if (!auth) {
       console.error('Firebase Auth not initialized');
+      showError('Firebase not initialized');
       return false;
     }
 
+    console.log('Attempting Firebase login with email:', username);
     // Firebase uses email for authentication
     const userCredential = await auth.signInWithEmailAndPassword(username, password);
     currentUser = { uid: userCredential.user.uid, username: userCredential.user.email };
     
-    console.log('Login successful:', username);
+    console.log('Firebase login successful:', username);
     updateAuthUI();
     return true;
   } catch (error) {
@@ -101,7 +112,8 @@ function loginDemo(username, password) {
     currentUser = {
       uid: 'demo-user-1',
       username: username,
-      email: 'admin@esports.com'
+      email: 'admin@esports.com',
+      role: 'admin'
     };
     currentUserRole = 'admin';
     
@@ -109,11 +121,11 @@ function loginDemo(username, password) {
     localStorage.setItem('demoUser', JSON.stringify(currentUser));
     localStorage.setItem('demoUserRole', currentUserRole);
     
-    console.log('Demo login successful');
+    console.log('Demo login successful', currentUser);
     updateAuthUI();
     return true;
   } else {
-    console.error('Invalid demo credentials');
+    console.error('Invalid demo credentials - got username:', username, 'password:', password);
     showError('Invalid username or password');
     return false;
   }
@@ -183,10 +195,16 @@ function getCurrentUserRole() {
  * Call this at the start of protected pages
  */
 function protectPage() {
-  if (!isLoggedIn()) {
-    console.log('Access denied. Redirecting to login.');
-    window.location.href = 'login.html';
-  }
+  // Initialize auth listener first
+  initAuthStateListener();
+  
+  // Check after a small delay to allow auth state to initialize
+  setTimeout(() => {
+    if (!isLoggedIn()) {
+      console.log('Access denied. Redirecting to login.');
+      window.location.href = 'login.html';
+    }
+  }, 100);
 }
 
 /**

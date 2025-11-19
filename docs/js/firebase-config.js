@@ -32,7 +32,6 @@ function initializeFirebase() {
         firebaseConfig.projectId === "your-project-id") {
       console.warn('Firebase configuration not set. Using demo mode.');
       USE_DEMO_MODE = true;
-      loadDemoData();
       return;
     }
 
@@ -45,7 +44,6 @@ function initializeFirebase() {
     console.warn('Firebase initialization failed:', error);
     console.log('Switching to demo mode');
     USE_DEMO_MODE = true;
-    loadDemoData();
   }
 }
 
@@ -59,7 +57,5 @@ function getAuth() {
   return auth;
 }
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', function() {
-  initializeFirebase();
-});
+// Initialize Firebase immediately (before DOM load)
+initializeFirebase();

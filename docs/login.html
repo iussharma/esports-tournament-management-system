@@ -53,16 +53,28 @@
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            
+            console.log('Login attempt with username:', username);
             
             const success = await login(username, password);
+            console.log('Login result:', success);
+            
             if (success) {
+                console.log('Login successful, redirecting to dashboard...');
                 // Redirect to dashboard after successful login
                 setTimeout(() => {
                     window.location.href = 'dashboard.html';
-                }, 500);
+                }, 800);
+            } else {
+                console.log('Login failed, staying on login page');
             }
+        });
+        
+        // Also initialize auth state listener on login page
+        document.addEventListener('DOMContentLoaded', function() {
+            initAuthStateListener();
         });
     </script>
 </body>
