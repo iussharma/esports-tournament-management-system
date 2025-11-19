@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ODDSOCEAN ESPORTS</title>
+    <link rel="stylesheet" href="css/gaming.css">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="navbar-container">
+                <div class="logo">OCN</div>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/login.html" data-auth="login-link">Admin Login</a>
+                    <button class="logout-btn" data-auth="logout-btn" onclick="logout()" style="display:none;">Logout</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-section">
+            <h1>ODDSOCEAN</h1>
+            <p>SINGLE PLACE FOR ALL TYPE OF TOURNAMENT CREATION AND MANAGEMENT</p>
+            <a href="/login.html" class="btn btn-primary">Get Started</a>
+        </div>
+
+        <div class="features-section">
+            <div class="feature-card">
+                <h3>🏆 Manage Teams</h3>
+                <p>Create and manage your eSports teams with comprehensive player management.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📊 Track Tournaments</h3>
+                <p>Organize tournaments, schedule matches, and track results in real-time.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🎯 Player Stats</h3>
+                <p>Monitor player performance, K/D ratios, and skill ratings.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📈 Leaderboards</h3>
+                <p>View team rankings and competitive standings dynamically.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 ODDSOCEAN. All rights reserved.</p>
+        <p>Powered by Firebase | Running in Demo Mode</p>
+    </footer>
+
+    <!-- Firebase & Auth Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

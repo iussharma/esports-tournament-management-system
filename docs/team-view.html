@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team View - ODDSOCEAN</title>
+    <link rel="stylesheet" href="css/gaming.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-container">
+            <div class="logo">OCN</div>
+            <div class="nav-links">
+                <a href="/dashboard.html">Dashboard</a>
+                <a href="/team-list.html">Teams</a>
+                <a href="/player-list.html">Players</a>
+                <a href="/tournament-list.html">Tournaments</a>
+                <a href="/match-list.html">Matches</a>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-container">
+        <div class="content-section">
+            <div data-alert="error" class="alert alert-error"></div>
+
+            <div id="teamViewContainer">
+                <!-- Team details will be rendered here -->
+            </div>
+
+            <div class="form-actions">
+                <a href="/team-list.html" class="btn btn-secondary">Back to Teams</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div>&copy; ODDSOCEAN</div>
+        <div style="font-size:0.85rem;color:#98a8b9">OCNfullofMONSTERS</div>
+    </footer>
+
+    <!-- Firebase & Auth Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/render.js"></script>
+</body>
+</html>

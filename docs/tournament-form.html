@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Form - ODDSOCEAN</title>
+    <link rel="stylesheet" href="css/gaming.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-container">
+            <div class="logo">OCN</div>
+            <div class="nav-links">
+                <a href="/dashboard.html">Dashboard</a>
+                <a href="/team-list.html">Teams</a>
+                <a href="/player-list.html">Players</a>
+                <a href="/tournament-list.html">Tournaments</a>
+                <a href="/match-list.html">Matches</a>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-container">
+        <div class="content-section">
+            <h1>Create New Tournament</h1>
+
+            <div data-alert="error" class="alert alert-error"></div>
+            <div data-alert="success" class="alert alert-success"></div>
+
+            <form id="tournamentForm" class="form-container">
+                <div class="form-group">
+                    <label for="tournamentName">Tournament Name *</label>
+                    <input type="text" id="tournamentName" name="tournamentName" required placeholder="Enter tournament name">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" rows="4" placeholder="Tournament description"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status">
+                        <option value="upcoming">Upcoming</option>
+                        <option value="ongoing">Ongoing</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Create Tournament</button>
+                    <a href="/tournament-list.html" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div>&copy; ODDSOCEAN</div>
+        <div style="font-size:0.85rem;color:#98a8b9">OCNfullofMONSTERS</div>
+    </footer>
+
+    <!-- Firebase & Auth Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/render.js"></script>
+
+    <script>
+        document.getElementById('tournamentForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const tournamentName = document.getElementById('tournamentName').value.trim();
+            const description = document.getElementById('description').value.trim();
+            const status = document.getElementById('status').value;
+            
+            if (!tournamentName) {
+                showError('Tournament name is required');
+                return;
+            }
+            
+            const success = await API.createTournament({ tournamentName, description, status });
+            if (success) {
+                setTimeout(() => {
+                    window.location.href = '/tournament-list.html';
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Form - ODDSOCEAN</title>
+    <link rel="stylesheet" href="css/gaming.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-container">
+            <div class="logo">OCN</div>
+            <div class="nav-links">
+                <a href="/dashboard.html">Dashboard</a>
+                <a href="/team-list.html">Teams</a>
+                <a href="/player-list.html">Players</a>
+                <a href="/tournament-list.html">Tournaments</a>
+                <a href="/match-list.html">Matches</a>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-container">
+        <div class="content-section">
+            <h1>Add New Player</h1>
+
+            <div data-alert="error" class="alert alert-error"></div>
+            <div data-alert="success" class="alert alert-success"></div>
+
+            <form id="playerForm" class="form-container">
+                <div class="form-group">
+                    <label for="playerName">Player Name *</label>
+                    <input type="text" id="playerName" name="playerName" required placeholder="Enter player name">
+                </div>
+
+                <div class="form-group">
+                    <label for="teamId">Team *</label>
+                    <select id="teamId" name="teamId" required>
+                        <option value="">Select Team</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <input type="text" id="role" name="role" placeholder="e.g., Rifler, AWP, Support">
+                </div>
+
+                <div class="form-group">
+                    <label for="kd_ratio">K/D Ratio</label>
+                    <input type="number" id="kd_ratio" name="kd_ratio" step="0.01" placeholder="e.g., 1.45">
+                </div>
+
+                <div class="form-group">
+                    <label for="skill_rating">Skill Rating (0-100)</label>
+                    <input type="number" id="skill_rating" name="skill_rating" min="0" max="100" placeholder="e.g., 85">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Add Player</button>
+                    <a href="/player-list.html" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div>&copy; ODDSOCEAN</div>
+        <div style="font-size:0.85rem;color:#98a8b9">OCNfullofMONSTERS</div>
+    </footer>
+
+    <!-- Firebase & Auth Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/render.js"></script>
+</body>
+</html>

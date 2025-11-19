@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Form - ODDSOCEAN</title>
+    <link rel="stylesheet" href="css/gaming.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-container">
+            <div class="logo">OCN</div>
+            <div class="nav-links">
+                <a href="/dashboard.html">Dashboard</a>
+                <a href="/team-list.html">Teams</a>
+                <a href="/player-list.html">Players</a>
+                <a href="/tournament-list.html">Tournaments</a>
+                <a href="/match-list.html">Matches</a>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-container">
+        <div class="content-section">
+            <h1>Schedule New Match</h1>
+
+            <div data-alert="error" class="alert alert-error"></div>
+            <div data-alert="success" class="alert alert-success"></div>
+
+            <form id="matchForm" class="form-container">
+                <div class="form-group">
+                    <label for="team1Id">Team 1 *</label>
+                    <select id="team1Id" name="team1Id" required>
+                        <option value="">Select Team 1</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="team2Id">Team 2 *</label>
+                    <select id="team2Id" name="team2Id" required>
+                        <option value="">Select Team 2</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tournamentId">Tournament (Optional)</label>
+                    <select id="tournamentId" name="tournamentId">
+                        <option value="">No Tournament</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="scheduledDate">Scheduled Date *</label>
+                    <input type="datetime-local" id="scheduledDate" name="scheduledDate" required>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Schedule Match</button>
+                    <a href="/match-list.html" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div>&copy; ODDSOCEAN</div>
+        <div style="font-size:0.85rem;color:#98a8b9">OCNfullofMONSTERS</div>
+    </footer>
+
+    <!-- Firebase & Auth Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/render.js"></script>
+
+    <script>
+        // Initialize form with team and tournament options
+        document.addEventListener('DOMContentLoaded', async function() {
+            const teams = await API.getTeams();
+            const tournaments = await API.getTournaments();
+            
+            const team1Select = document.getElementById('team1Id');
+            const team2Select = document.getElementById('team2Id');
+            const tournamentSelect = document.getElementById('tournamentId');
+            
+            teams.forEach(team => {
+                const option1 = document.createElement('option');
+                option1.value = team.teamId;
+                option1.textContent = team.teamName;
+                team1Select.appendChild(option1);
+                
+                const option2 = document.createElement('option');
+                option2.value = team.teamId;
+                option2.textContent = team.teamName;
+                team2Select.appendChild(option2);
+            });
+            
+            tournaments.forEach(tournament => {
+                const option = document.createElement('option');
+                option.value = tournament.tournamentId;
+                option.textContent = tournament.tournamentName;
+                tournamentSelect.appendChild(option);
+            });
+        });
+
+        document.getElementById('matchForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const team1Id = document.getElementById('team1Id').value;
+            const team2Id = document.getElementById('team2Id').value;
+            const tournamentId = document.getElementById('tournamentId').value || null;
+            const scheduledDate = document.getElementById('scheduledDate').value;
+            
+            if (!team1Id || !team2Id) {
+                showError('Both teams are required');
+                return;
+            }
+            
+            if (team1Id === team2Id) {
+                showError('Teams must be different');
+                return;
+            }
+            
+            const success = await API.createMatch({ 
+                team1Id, 
+                team2Id, 
+                tournamentId,
+                scheduledDate 
+            });
+            
+            if (success) {
+                setTimeout(() => {
+                    window.location.href = '/match-list.html';
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>
