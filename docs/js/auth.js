@@ -143,7 +143,7 @@ async function logout() {
     
     updateAuthUI();
     // Redirect to home
-    window.location.href = '/';
+    window.location.href = 'index.html';
   } catch (error) {
     console.error('Logout failed:', error.message);
     showError('Logout failed: ' + error.message);
@@ -185,7 +185,7 @@ function getCurrentUserRole() {
 function protectPage() {
   if (!isLoggedIn()) {
     console.log('Access denied. Redirecting to login.');
-    window.location.href = '/login.html';
+    window.location.href = 'login.html';
   }
 }
 
@@ -196,7 +196,7 @@ function protectPage() {
 function protectAdminPage() {
   if (!isLoggedIn() || !isAdmin()) {
     console.log('Admin access denied. Redirecting to login.');
-    window.location.href = '/login.html';
+    window.location.href = 'login.html';
   }
 }
 
