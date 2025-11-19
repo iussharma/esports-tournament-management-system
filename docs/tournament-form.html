@@ -108,27 +108,5 @@
             }
         });
     </script>
-
-    <script>
-        document.getElementById('tournamentForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const tournamentName = document.getElementById('tournamentName').value.trim();
-            const description = document.getElementById('description').value.trim();
-            const status = document.getElementById('status').value;
-            
-            if (!tournamentName) {
-                showError('Tournament name is required');
-                return;
-            }
-            
-            const success = await API.createTournament({ tournamentName, description, status });
-            if (success) {
-                setTimeout(() => {
-                    window.location.href = 'tournament-list.html';
-                }, 1000);
-            }
-        });
-    </script>
 </body>
 </html>
