@@ -827,3 +827,6 @@ async function getDashboardStatsDemo() {
     topTeams: demoTeams.sort((a, b) => b.totalPoints - a.totalPoints).slice(0, 5)
   };
 }
+
+// Initialize demo data when API module loads
+loadDemoData();
