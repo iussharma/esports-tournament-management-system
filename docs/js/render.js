@@ -25,7 +25,7 @@ const Render = {
         tbody.innerHTML = `
           <tr>
             <td colspan="7" class="text-center">
-              No teams found. <a href="/team-form.html">Create one</a>
+              No teams found. <a href="team-form.html">Create one</a>
             </td>
           </tr>
         `;
@@ -42,8 +42,8 @@ const Render = {
           <td>${team.wins || 0}</td>
           <td>${team.losses || 0}</td>
           <td>
-            <a href="/team-form.html?id=${team.teamId}" class="btn btn-sm btn-primary">Edit</a>
-            <a href="/team-view.html?id=${team.teamId}" class="btn btn-sm btn-info">View</a>
+            <a href="team-form.html?id=${team.teamId}" class="btn btn-sm btn-primary">Edit</a>
+            <a href="team-view.html?id=${team.teamId}" class="btn btn-sm btn-info">View</a>
             <button class="btn btn-sm btn-danger" onclick="Render.deleteTeam('${team.teamId}')">Delete</button>
           </td>
         `;
@@ -117,7 +117,7 @@ const Render = {
 
       if (success) {
         setTimeout(() => {
-          window.location.href = '/team-list.html';
+          window.location.href = 'team-list.html';
         }, 1000);
       }
     } catch (error) {
@@ -222,7 +222,7 @@ const Render = {
         tbody.innerHTML = `
           <tr>
             <td colspan="6" class="text-center">
-              No players found. <a href="/player-form.html">Add one</a>
+              No players found. <a href="player-form.html">Add one</a>
             </td>
           </tr>
         `;
@@ -238,7 +238,7 @@ const Render = {
           <td>${player.kd_ratio?.toFixed(2) || 'N/A'}</td>
           <td>${player.skill_rating || 'N/A'}</td>
           <td>
-            <a href="/player-form.html?id=${player.playerId}" class="btn btn-sm btn-primary">Edit</a>
+            <a href="player-form.html?id=${player.playerId}" class="btn btn-sm btn-primary">Edit</a>
             <button class="btn btn-sm btn-danger" onclick="Render.deletePlayer('${player.playerId}')">Delete</button>
           </td>
         `;
@@ -326,7 +326,7 @@ const Render = {
 
       if (success) {
         setTimeout(() => {
-          window.location.href = '/player-list.html';
+          window.location.href = 'player-list.html';
         }, 1000);
       }
     } catch (error) {
@@ -368,7 +368,7 @@ const Render = {
         tbody.innerHTML = `
           <tr>
             <td colspan="5" class="text-center">
-              No tournaments found. <a href="/tournament-form.html">Create one</a>
+              No tournaments found. <a href="tournament-form.html">Create one</a>
             </td>
           </tr>
         `;
@@ -383,7 +383,7 @@ const Render = {
           <td>${tournament.description || 'N/A'}</td>
           <td><span class="badge badge-${tournament.status}">${tournament.status}</span></td>
           <td>
-            <a href="/tournament-form.html?id=${tournament.tournamentId}" class="btn btn-sm btn-primary">Edit</a>
+            <a href="tournament-form.html?id=${tournament.tournamentId}" class="btn btn-sm btn-primary">Edit</a>
             <button class="btn btn-sm btn-danger" onclick="Render.deleteTournament('${tournament.tournamentId}')">Delete</button>
           </td>
         `;
@@ -428,7 +428,7 @@ const Render = {
         tbody.innerHTML = `
           <tr>
             <td colspan="7" class="text-center">
-              No matches found. <a href="/match-form.html">Schedule one</a>
+              No matches found. <a href="match-form.html">Schedule one</a>
             </td>
           </tr>
         `;
@@ -501,20 +501,20 @@ const Render = {
           <div class="stat-card stat-teams">
             <h3>Total Teams</h3>
             <p class="stat-number">${stats.totalTeams}</p>
-            <a href="/team-list.html" class="card-link">View All</a>
+            <a href="team-list.html" class="card-link">View All</a>
           </div>
           <div class="stat-card stat-tournaments">
             <h3>Total Tournaments</h3>
             <p class="stat-number">${stats.totalTournaments}</p>
-            <a href="/tournament-list.html" class="card-link">View All</a>
+            <a href="tournament-list.html" class="card-link">View All</a>
           </div>
           <div class="stat-card">
             <h3>Quick Actions</h3>
             <ul class="quick-actions">
-              <li><a href="/team-form.html">+ New Team</a></li>
-              <li><a href="/player-form.html">+ New Player</a></li>
-              <li><a href="/match-form.html">+ Schedule Match</a></li>
-              <li><a href="/tournament-form.html">+ New Tournament</a></li>
+              <li><a href="team-form.html">+ New Team</a></li>
+              <li><a href="player-form.html">+ New Player</a></li>
+              <li><a href="match-form.html">+ Schedule Match</a></li>
+              <li><a href="tournament-form.html">+ New Tournament</a></li>
             </ul>
           </div>
         </div>
@@ -538,7 +538,7 @@ const Render = {
         });
         topTeamsHtml += '</tbody></table>';
       } else {
-        topTeamsHtml += '<p>No teams yet. <a href="/team-form.html">Create one</a></p>';
+        topTeamsHtml += '<p>No teams yet. <a href="team-form.html">Create one</a></p>';
       }
 
       // Navigation section
@@ -546,19 +546,19 @@ const Render = {
         <div class="navigation-section">
           <h2>Navigation</h2>
           <div class="nav-grid">
-            <a href="/team-list.html" class="nav-card">
+            <a href="team-list.html" class="nav-card">
               <h3>🏆 Teams</h3>
               <p>Manage teams and view details</p>
             </a>
-            <a href="/player-list.html" class="nav-card">
+            <a href="player-list.html" class="nav-card">
               <h3>👥 Players</h3>
               <p>Manage player profiles</p>
             </a>
-            <a href="/tournament-list.html" class="nav-card">
+            <a href="tournament-list.html" class="nav-card">
               <h3>🎮 Tournaments</h3>
               <p>Create and manage tournaments</p>
             </a>
-            <a href="/match-list.html" class="nav-card">
+            <a href="match-list.html" class="nav-card">
               <h3>⚔️ Matches</h3>
               <p>Schedule and track matches</p>
             </a>
